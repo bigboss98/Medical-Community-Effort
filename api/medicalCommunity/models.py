@@ -1,6 +1,10 @@
 from django.db import models
 import json 
 
+
+class Exam(models.Model):
+    name = models.CharField(max_length = 200, primary_key=True)
+
 # Create your models here.
 class Structure(models.Model):
     name = models.CharField(max_length=200, primary_key=True)
@@ -8,10 +12,18 @@ class Structure(models.Model):
     region = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=20)
     advertiser = models.BooleanField()
+    exam_name = models.ManyToManyField(Exam)
 
     def toJson(self): 
-        return json.dumps(self, default=lambda o: o.__dict__)
+        structure_json = {
+            'name': self.name,
+            'city': self.city,
+            'region': self.region,
+            'phone_number': self.phone_number,
+            'advertiser': self.advertiser,
+            'exams_name': [elem.name for elem in self.exam_name.all()]
+        }
+        print("Prova: ", self.exam_name.all())
+        return json.dumps(structure_json)
 
-class Exam(models.Model):
-    name = models.CharField(max_length = 200, primary_key=True)
 
