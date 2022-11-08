@@ -89,14 +89,14 @@ def structure(request, name):
             exams.append(exam)
         structure.exam_name.set(exams, clear=True)
         structure.save()
-        print(structure.__dict__)
-        print(structure.exam_name.all())
+        
         return JsonResponse(structure.toJson(), safe=False)
         
     elif request.method == 'DELETE': 
         structure = get_object_or_404(Structure, pk=name)
+        structure_json = structure.toJson()
         structure.delete()
-        return JsonResponse(structure.toJson(), safe=False)
+        return JsonResponse(structure_json, safe=False)
 
     elif request.method == 'POST':
         structure_json = json.loads(request.body)
