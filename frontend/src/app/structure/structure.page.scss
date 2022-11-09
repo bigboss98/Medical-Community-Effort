@@ -1,28 +1,72 @@
-ion-menu-button {
-  color: var(--ion-color-primary);
-}
+@import '../../theme/variables.scss';
 
-#container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.searchbar-clear-icon {
+  display: none !important;
 }
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.content {
+  background-color: var(--ion-color--primary);
 }
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c;
-  margin: 0;
+.actionBar {
+  background-color: var(--ion-color-quiteDark);
+  color: white;
+  padding: 10px;
+  .stats {
+    color: white;
+    white-space: nowrap;
+    text-overflow: hidden;
+  }
 }
+.noElements {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: var(--ion-color--primary);
+  .middle {
+    position: absolute;
+    top: 45%;
+    margin-top: -[half height];
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 1.1em;
+    padding: 0 10px;
+  }
+}
+.usersList {
+  padding: 0;
+  ion-col {
+    padding: 0;
+  }
+}
+.usersTable {
+  width: 100%;
+  thead {
+    background: var(--ion-color-quiteDark);
+    color: white;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    text-align: left;
+    tr {
+      height: 40px !important;
+    }
+  }
+  td,
+  th {
+    padding: 8px 10px;
+    text-align: center;
 
-#container a {
-  text-decoration: none;
+  }
+  td {
+    background-color: #fcfcfc;
+  }
+  tr.even td {
+    background-color: white;
+  }
+  td.expired {
+    color: var(--ion-color-danger);
+    font-weight: 500;
+  }
 }

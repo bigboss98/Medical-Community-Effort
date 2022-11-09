@@ -30,6 +30,11 @@ export class StructurePage{
       console.log("AZZ")
       console.log(this.structures);
       this.filteredList = this.structures;
+      this.filteredList.sort((el1, el2) => {
+        if (el1.advertiser < el2.advertiser) return 1;
+        if (el1.advertiser > el2.advertiser) return -1;
+        return 0;
+      })
       this.numElCurrentSearch = this.filteredList.length;
     }, err => {
       console.log(this.api);
@@ -54,14 +59,25 @@ export class StructurePage{
     toSearch = toSearch ? toSearch.toLowerCase() : '';
     // filter based on the main fields of the items and paginate
     this.filteredList = this.structures.filter(structure =>
-      toSearch.split(' ').every(searchTerm =>
-          [structure.name,
-           structure.city,
+      toSearch.split(' ').every(searchTerm => {
+          [structure.city,
            structure.region].filter(f => f).some(f => f.toLowerCase().includes(searchTerm))
+ 
+          }
         )
     );
-    console.log(this.filteredList);
-
+    const examList = this.structures.filter(structure =>
+      toSearch.split(' ').every(searchTerm => {
+          return structure.exams_name.filter(f => f.toLowerCase().includes(searchTerm)).length > 0;
+        })
+    );
+  
+    this.filteredList = [...examList, ...this.filteredList];
+    this.filteredList.sort((el1, el2) => {
+      if (el1.advertiser < el2.advertiser) return 1;
+      if (el1.advertiser > el2.advertiser) return -1;
+      return 0;
+    })
     this.numElCurrentSearch = this.filteredList.length;
   }
   /**

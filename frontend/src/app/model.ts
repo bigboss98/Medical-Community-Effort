@@ -3,7 +3,8 @@ export class Structure {
     city: string;
     region: string;
     advertiser: string;
-    exams: string[];
+    exams_name: string[];
+    phone_number: string;
 
     constructor(partialStructure: Partial<Structure>) {
         Object.assign(this, partialStructure);
