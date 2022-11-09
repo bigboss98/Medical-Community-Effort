@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-searchbar
+      *ngIf="structures?.length"
+      placeholder='Filtra tra le strutture'
+      (ionInput)="filter($event)"
+    >
+    </ion-searchbar>
+    <ion-buttons slot="right">
+      <ion-button icon-only color="light" (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content scroll-x="true">
+  <div ion-fixed class="noElements" *ngIf="structures && !structures.length">
+    <div class="middle">
+      Nessun Utente
+    </div>
+  </div>
+  <div
+    ion-fixed
+    class="noElements"
+    *ngIf="!structures && !structures.length"
+  >
+    <div class="middle">
+      Nessun Utente trovato 
+    </div>
+  </div>
+  <ion-row align-items-center class="actionBar" *ngIf="numElCurrentSearch">
+    <ion-col col-9 class="stats">
+      Numero Utenti Attuali: {{ numElCurrentSearch}} 
+    </ion-col>
+  </ion-row>
+    <table class="usersTable">
+      <thead>
+        <tr>
+
+          <th>
+            Nome
+          </th>
+
+          <th>
+            Città
+          </th>
+          <th> Regione </th>
+          <th> Num. Telefono</th>
+          <th> Esami </th>
+        </tr>
+      </thead>
+      <tr *ngFor="let structure of filteredList; let even = even" [class.even]="even">
+
+        <td>{{ structure.name }}</td>
+        <td>
+          {{ structure.city }}
+        </td>
+        <td>
+          {{ structure.region }}
+        </td>
+        <td>
+          {{ structure.phone_number }}
+        </td>
+        <td>
+          {{ structure.exams_name}}
+        </td>
+      </tr>
+    </table>
+</ion-content>
