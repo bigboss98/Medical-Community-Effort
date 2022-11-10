@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -8,13 +8,14 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['newStructure.component.scss']
 })
 export class NewStructureComponent {
-  name: string;
-  city: string;
-  region: string;
-  phone_number: string;
-  advertiser: boolean;
+  name: string = "";
+  city: string = "";
+  region: string = "";
+  phone_number: string = "";
+  advertiser: boolean = false;
 
-  constructor(private modalCtrl: ModalController) {
+  constructor(private modalCtrl: ModalController,
+              private toastCtrl: ToastController) {
 
   }
 
@@ -22,8 +23,30 @@ export class NewStructureComponent {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  confirm() {
-    console.log(this);
+  async confirm():Promise<void | boolean> {
+    console.log(this)
+    if (this.name === '' && this.city === '' && this.region === '' && this.phone_number === '') {
+      const toast = await this.toastCtrl.create({
+        message: 'I campi non possono essere vuoti!',
+        duration: 1500,
+        position: 'bottom',
+        color: 'danger'
+      });
+
+      await toast.present();
+      return ;
+    }
+    if (isNaN(Number(this.phone_number))) {
+      const toast = await this.toastCtrl.create({
+        message: 'Il numero di telefono deve contenere soltanto numeri!',
+        duration: 1500,
+        position: 'bottom',
+        color: 'danger'
+      });
+
+      await toast.present();
+      return ;
+    }
     return this.modalCtrl.dismiss({name: this.name, city: this.city, region: this.region, phone_number: this.phone_number, advertiser: this.advertiser}, 'confirm');
   }
 

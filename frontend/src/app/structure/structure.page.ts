@@ -80,6 +80,7 @@ export class StructurePage{
 
   }
 
+  
   /**
    * Search users to approve that match user's search preferences
    * @param toSearch(string): String where to filter results
