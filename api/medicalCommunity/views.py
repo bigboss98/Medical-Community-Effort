@@ -100,6 +100,7 @@ def structure(request, name):
 
     elif request.method == 'POST':
         structure_json = json.loads(request.body)
+        print(structure_json)
         structure = Structure(name=name, city=structure_json['city'], region=structure_json['region'],
                               phone_number=structure_json['phone_number'], advertiser=structure_json['advertiser'])
         structure.save()

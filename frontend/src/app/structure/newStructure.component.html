@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Inserisci Struttura </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="medium" (click)="cancel()">Cancella</ion-button>
+      <ion-button (click)="confirm()">Conferma</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Nome: </ion-label>
+    <ion-input [(ngModel)]="name" placeholder="Nome Struttura"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Città: </ion-label>
+    <ion-input [(ngModel)]="city" placeholder="Città"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Nazione: </ion-label>
+    <ion-input [(ngModel)]="region" placeholder="Nazione"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Numero di Telefono: </ion-label>
+    <ion-input [(ngModel)]="phone_number" placeholder="Numero di Telefono"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-select (ionChange)="chooseAdvertising($event)" placeholder="Seleziona Tipologia di Struttura">
+      <ion-select-option value="advertised"> Pubblicizzata</ion-select-option>
+      <ion-select-option value="non-advertised"> Non Pubblicizzata</ion-select-option>
+
+    </ion-select>
+  </ion-item>
+</ion-content>
