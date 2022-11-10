@@ -84,7 +84,7 @@ def structure(request, name):
         structure.save()
 
         exams = []
-        for exam_name in structure_json['exam_name']:
+        for exam_name in structure_json['exams_name']:
             exam = Exam.objects.get(pk=exam_name)
             exams.append(exam)
         structure.exam_name.set(exams, clear=True)
@@ -103,7 +103,7 @@ def structure(request, name):
         structure = Structure(name=name, city=structure_json['city'], region=structure_json['region'],
                               phone_number=structure_json['phone_number'], advertiser=structure_json['advertiser'])
         structure.save()
-        for exam_name in structure_json['exam_name']:
+        for exam_name in structure_json['exams_name']:
             exam = Exam.objects.get(pk=exam_name)
             structure.exam_name.add(exam)
         structure.save()

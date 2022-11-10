@@ -32,22 +32,12 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'medicalCommunity.apps.MedicalcommunityConfig',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'medicalCommunityApi.urls'
@@ -81,6 +71,8 @@ DATABASES = {
     }
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -122,3 +114,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DJANGO_LOGGING_MIDDLEWARE = {
+    'DEFAULT_FORMAT': False,
+    'MESSAGE_FORMAT': "<b><green>{time}</green> <cyan>{message}</cyan></b>"
+}
