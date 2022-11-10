@@ -54,6 +54,7 @@
           <th> Num. Telefono</th>
           <th> Advertiser </th>
           <th> Esami </th>
+          <th></th>
         </tr>
       </thead>
       <tr *ngFor="let structure of filteredList; let even = even" [class.even]="even">
@@ -73,6 +74,11 @@
         </td>
         <td>
           {{ structure.exams_name}}
+        </td>
+        <td>
+          <ion-button fill="clear" slot="end" (click)="deleteStructure(structure)">
+            <ion-icon slot="icon-only" icon="trash" color="danger"></ion-icon>
+          </ion-button>
         </td>
       </tr>
     </table>

@@ -73,11 +73,9 @@ export class StructurePage{
       const structure: Structure = {name: name, city: city, region: region, phone_number: phone_number, advertiser: advertiser, exams_name: []}
       this.structures.push(structure)
       this.api.post('http://localhost:8000/structures/' + name, JSON.stringify(structure), {headers: headers}).subscribe(data => {
-        console.log(data);
+        
       })
-      console.log(name);
-      console.log(advertiser)
-      //this.structures.push(structure);
+
     };
     const buttons = [
       { text: 'Annulla', role: 'cancel' },
@@ -123,5 +121,17 @@ export class StructurePage{
    */
   filter(event: any){
     this.search(event.target ? event.target.value : '');
+  }
+
+  protected deleteStructure(structure: Structure) {
+    this.structures.splice(this.structures.indexOf(structure), 1)
+    let headers: any = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Access-Control-Allow-Origin', '*');
+
+    this.api.delete('http://localhost:8000/structures/' + structure.name, {headers: headers, body: JSON.stringify(structure)}).subscribe(data => {
+      
+    })
+
   }
 }
