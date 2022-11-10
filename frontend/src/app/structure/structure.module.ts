@@ -8,6 +8,7 @@ import { StructurePageRoutingModule } from './structure-routing.module';
 
 import { StructurePage } from './structure.page';
 import { HttpClientModule } from '@angular/common/http';
+import { NewStructureComponent } from './newStructure.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { HttpClientModule } from '@angular/common/http';
     IonicModule,
     StructurePageRoutingModule
   ],
-  declarations: [StructurePage]
+  declarations: [StructurePage, NewStructureComponent]
 })
 export class StructurePageModule {}
