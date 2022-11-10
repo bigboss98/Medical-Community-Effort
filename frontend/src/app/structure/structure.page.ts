@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Structure, fromJson } from '../model';
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'structure',
   templateUrl: './structure.page.html',
@@ -13,8 +15,10 @@ export class StructurePage{
   structures: Structure[];
   filteredList: Structure[];
   numElCurrentSearch: number; 
+  
   constructor(private activatedRoute: ActivatedRoute,
-              private api: HttpClient) {
+              private api: HttpClient,
+              private alertCtrl: AlertController) {
     this.structures = []
     }
   
@@ -27,8 +31,7 @@ export class StructurePage{
       for (let index=0; index < Object.keys(data).length; index++) {
         this.structures.push(JSON.parse(data[index]))
       }
-      console.log("AZZ")
-      console.log(this.structures);
+  
       this.filteredList = this.structures;
       this.filteredList.sort((el1, el2) => {
         if (el1.advertiser < el2.advertiser) return 1;
@@ -49,6 +52,40 @@ export class StructurePage{
    */
   close(): void {
     
+  }
+
+  async newStructure(): Promise<void> {
+    const header = 'Inserisci una nuova struttura medica'
+    const message = 'Sei sicuro di volere aggiungere una struttura';
+    const inputs: any[] = [
+      { name: 'name', type: 'text', placeholder: 'Nome Struttura'},
+      { name: 'city', type: 'text', placeholder: 'Città'},
+      { name: 'region', type: 'text', placeholder: 'Regione'},
+      { name: 'phone_number', type: 'text', placeholder: 'Numero di Telefono'}, 
+      { name: 'advertiser', type: 'radio', label: 'Advertising'}
+    ]
+    const doAddStructure = async ({name, city, region, phone_number, advertiser}) => {
+      let headers: any = new HttpHeaders();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Access-Control-Allow-Origin', '*');
+      if (advertiser === 'on') advertiser = true;
+      else advertiser = false;
+      const structure: Structure = {name: name, city: city, region: region, phone_number: phone_number, advertiser: advertiser, exams_name: []}
+      this.structures.push(structure)
+      this.api.post('http://localhost:8000/structures/' + name, JSON.stringify(structure), {headers: headers}).subscribe(data => {
+        console.log(data);
+      })
+      console.log(name);
+      console.log(advertiser)
+      //this.structures.push(structure);
+    };
+    const buttons = [
+      { text: 'Annulla', role: 'cancel' },
+      { text: 'Inserisci', handler: doAddStructure }
+    ];
+
+    const alert = await this.alertCtrl.create({ header, inputs, buttons });
+    alert.present();
   }
 
   /**
